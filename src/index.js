@@ -7,10 +7,10 @@ const args = process.argv.slice(2);
 
 if (args.includes('--help') || args.includes('-h')) {
   console.log(`
-claude-spend - Token usage dashboard for Claude Code, Gemini CLI & Codex CLI
+coding-agent-usage - Token usage dashboard for Claude Code, Gemini CLI & Codex CLI
 
 Usage:
-  claude-spend [options]
+  coding-agent-usage [options]
 
 Options:
   --port <port>              Port to run dashboard on (default: 3456)
@@ -27,10 +27,10 @@ Environment variables:
   OTEL_EXPORTER_OTLP_HEADERS    OTLP headers as comma-separated key=value pairs
 
 Examples:
-  npx claude-spend                                              Open dashboard in browser
-  claude-spend --port 8080                                      Use custom port
-  claude-spend --otlp-endpoint http://localhost:4318             Export metrics via OTLP
-  OTEL_EXPORTER_OTLP_ENDPOINT=http://otel:4318 claude-spend    Export via env var
+  npx coding-agent-usage                                                    Open dashboard in browser
+  coding-agent-usage --port 8080                                            Use custom port
+  coding-agent-usage --otlp-endpoint http://localhost:4318                   Export metrics via OTLP
+  OTEL_EXPORTER_OTLP_ENDPOINT=http://otel:4318 coding-agent-usage          Export via env var
 `);
   process.exit(0);
 }

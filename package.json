@@ -1,9 +1,10 @@
 {
-  "name": "claude-spend-otel",
+  "name": "coding-agent-usage",
   "version": "1.0.0",
   "description": "Coding Agent Usage — token usage dashboard for Claude Code, Gemini CLI, and Codex CLI with OpenTelemetry export.",
   "main": "src/index.js",
   "bin": {
+    "coding-agent-usage": "src/index.js",
     "claude-spend-otel": "src/index.js",
     "claude-spend": "src/index.js"
   },

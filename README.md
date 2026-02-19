@@ -9,7 +9,7 @@ See where your tokens go across all your AI coding tools. Optionally send the me
 ## Install
 
 ```
-npx claude-spend-otel
+npx coding-agent-usage
 ```
 
 That's it. Opens a dashboard in your browser.
@@ -40,8 +40,8 @@ Each tool is parsed independently. If a tool isn't installed or has no sessions,
 ## Options
 
 ```
-claude-spend-otel --port 8080       # custom port (default: 3456)
-claude-spend-otel --no-open         # don't auto-open browser
+coding-agent-usage --port 8080       # custom port (default: 3456)
+coding-agent-usage --no-open         # don't auto-open browser
 ```
 
 ## OTLP Export
@@ -56,14 +56,14 @@ The **OpenTelemetry Export** card lets you configure the endpoint and headers di
 
 ```bash
 # Basic
-claude-spend-otel --otlp-endpoint http://localhost:4318
+coding-agent-usage --otlp-endpoint http://localhost:4318
 
 # With authentication
-claude-spend-otel --otlp-endpoint https://otel.example.com \
+coding-agent-usage --otlp-endpoint https://otel.example.com \
   --otlp-headers "Authorization: Basic dXNlcjpwYXNz"
 
 # Multiple headers (can be specified multiple times)
-claude-spend-otel --otlp-endpoint https://otel.example.com \
+coding-agent-usage --otlp-endpoint https://otel.example.com \
   --otlp-headers "Authorization: Basic dXNlcjpwYXNz" \
   --otlp-headers "X-P-Stream: my-stream"
 ```
@@ -75,7 +75,7 @@ Headers support both `Key: Value` and `Key=Value` formats, and handle base64 val
 ```bash
 export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 export OTEL_EXPORTER_OTLP_HEADERS="Authorization: Basic dXNlcjpwYXNz, X-Custom: value"
-claude-spend-otel
+coding-agent-usage
 ```
 
 ### Metrics exported
@@ -84,18 +84,18 @@ claude-spend-otel
 
 | Metric | Type | Attributes | Description |
 |---|---|---|---|
-| `claude.spend.tokens.input` | Counter | model, project, date | Input tokens consumed |
-| `claude.spend.tokens.output` | Counter | model, project, date | Output tokens generated |
-| `claude.spend.queries` | Counter | model, project, date | Query round-trips |
-| `claude.spend.sessions` | Counter | project | Session count |
-| `claude.spend.session.tokens` | Histogram | model, project, date | Token distribution per session |
-| `claude.spend.session.queries` | Histogram | model, project, date | Query count distribution |
-| `claude.spend.daily.tokens.input` | Gauge | date | Daily input tokens |
-| `claude.spend.daily.tokens.output` | Gauge | date | Daily output tokens |
-| `claude.spend.daily.sessions` | Gauge | date | Daily session count |
-| `claude.spend.model.tokens.input` | Gauge | model | Per-model input tokens |
-| `claude.spend.model.tokens.output` | Gauge | model | Per-model output tokens |
-| `claude.spend.model.queries` | Gauge | model | Per-model query count |
+| `agent.usage.tokens.input` | Counter | model, project, date | Input tokens consumed |
+| `agent.usage.tokens.output` | Counter | model, project, date | Output tokens generated |
+| `agent.usage.queries` | Counter | model, project, date | Query round-trips |
+| `agent.usage.sessions` | Counter | project | Session count |
+| `agent.usage.session.tokens` | Histogram | model, project, date | Token distribution per session |
+| `agent.usage.session.queries` | Histogram | model, project, date | Query count distribution |
+| `agent.usage.daily.tokens.input` | Gauge | date | Daily input tokens |
+| `agent.usage.daily.tokens.output` | Gauge | date | Daily output tokens |
+| `agent.usage.daily.sessions` | Gauge | date | Daily session count |
+| `agent.usage.model.tokens.input` | Gauge | model | Per-model input tokens |
+| `agent.usage.model.tokens.output` | Gauge | model | Per-model output tokens |
+| `agent.usage.model.queries` | Gauge | model | Per-model query count |
 
 ### Continuous export
 

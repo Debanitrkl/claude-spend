@@ -72,13 +72,13 @@ function initOTLP({ endpoint, headers }) {
 
   meterProvider = new MeterProvider({
     resource: resourceFromAttributes({
-      'service.name': 'claude-spend',
+      'service.name': 'coding-agent-usage',
       'service.version': '1.0.0',
     }),
     readers: [reader],
   });
 
-  const meter = meterProvider.getMeter('claude-spend');
+  const meter = meterProvider.getMeter('coding-agent-usage');
 
   return {
     meter,
@@ -93,19 +93,19 @@ function initOTLP({ endpoint, headers }) {
  * Metrics exported:
  *
  *   Counters (cumulative totals, broken down by attributes):
- *     claude.spend.tokens.input   — total input tokens   {model, project}
- *     claude.spend.tokens.output  — total output tokens   {model, project}
- *     claude.spend.queries        — total query count     {model, project}
- *     claude.spend.sessions       — total session count   {project}
+ *     agent.usage.tokens.input   — total input tokens   {model, project}
+ *     agent.usage.tokens.output  — total output tokens   {model, project}
+ *     agent.usage.queries        — total query count     {model, project}
+ *     agent.usage.sessions       — total session count   {project}
  *
  *   Histograms (distribution of per-session values):
- *     claude.spend.session.tokens     — token count per session  {model, project}
- *     claude.spend.session.queries    — query count per session  {model, project}
+ *     agent.usage.session.tokens     — token count per session  {model, project}
+ *     agent.usage.session.queries    — query count per session  {model, project}
  *
  *   Gauges (point-in-time snapshots for daily breakdown):
- *     claude.spend.daily.tokens.input  — daily input tokens  {date}
- *     claude.spend.daily.tokens.output — daily output tokens {date}
- *     claude.spend.daily.sessions      — daily session count {date}
+ *     agent.usage.daily.tokens.input  — daily input tokens  {date}
+ *     agent.usage.daily.tokens.output — daily output tokens {date}
+ *     agent.usage.daily.sessions      — daily session count {date}
  *
  * @param {object} otel - Return value from initOTLP()
  * @param {object} data - Return value from parseAllSessions()
@@ -115,31 +115,31 @@ async function exportMetrics(otel, data) {
   const { sessions, dailyUsage, modelBreakdown, totals } = data;
 
   // --- Counters: per-session token usage (additive) ---
-  const inputTokensCounter = meter.createCounter('claude.spend.tokens.input', {
-    description: 'Total input tokens consumed across Claude Code sessions',
+  const inputTokensCounter = meter.createCounter('agent.usage.tokens.input', {
+    description: 'Total input tokens consumed across coding agent sessions',
     unit: 'tokens',
   });
 
-  const outputTokensCounter = meter.createCounter('claude.spend.tokens.output', {
-    description: 'Total output tokens generated across Claude Code sessions',
+  const outputTokensCounter = meter.createCounter('agent.usage.tokens.output', {
+    description: 'Total output tokens generated across coding agent sessions',
     unit: 'tokens',
   });
 
-  const queriesCounter = meter.createCounter('claude.spend.queries', {
+  const queriesCounter = meter.createCounter('agent.usage.queries', {
     description: 'Total number of queries (user-assistant round trips)',
   });
 
-  const sessionsCounter = meter.createCounter('claude.spend.sessions', {
-    description: 'Total number of Claude Code sessions',
+  const sessionsCounter = meter.createCounter('agent.usage.sessions', {
+    description: 'Total number of coding agent sessions',
   });
 
   // --- Histograms: per-session distribution ---
-  const sessionTokensHist = meter.createHistogram('claude.spend.session.tokens', {
+  const sessionTokensHist = meter.createHistogram('agent.usage.session.tokens', {
     description: 'Distribution of total tokens per session',
     unit: 'tokens',
   });
 
-  const sessionQueriesHist = meter.createHistogram('claude.spend.session.queries', {
+  const sessionQueriesHist = meter.createHistogram('agent.usage.session.queries', {
     description: 'Distribution of query count per session',
   });
 
@@ -161,15 +161,15 @@ async function exportMetrics(otel, data) {
   }
 
   // --- Gauges: daily breakdown (using UpDownCounter as observable gauge proxy) ---
-  const dailyInputGauge = meter.createUpDownCounter('claude.spend.daily.tokens.input', {
+  const dailyInputGauge = meter.createUpDownCounter('agent.usage.daily.tokens.input', {
     description: 'Input tokens consumed per day',
     unit: 'tokens',
   });
-  const dailyOutputGauge = meter.createUpDownCounter('claude.spend.daily.tokens.output', {
+  const dailyOutputGauge = meter.createUpDownCounter('agent.usage.daily.tokens.output', {
     description: 'Output tokens consumed per day',
     unit: 'tokens',
   });
-  const dailySessionsGauge = meter.createUpDownCounter('claude.spend.daily.sessions', {
+  const dailySessionsGauge = meter.createUpDownCounter('agent.usage.daily.sessions', {
     description: 'Number of sessions per day',
   });
 
@@ -181,15 +181,15 @@ async function exportMetrics(otel, data) {
   }
 
   // --- Gauges: per-model breakdown ---
-  const modelInputGauge = meter.createUpDownCounter('claude.spend.model.tokens.input', {
+  const modelInputGauge = meter.createUpDownCounter('agent.usage.model.tokens.input', {
     description: 'Input tokens per model',
     unit: 'tokens',
   });
-  const modelOutputGauge = meter.createUpDownCounter('claude.spend.model.tokens.output', {
+  const modelOutputGauge = meter.createUpDownCounter('agent.usage.model.tokens.output', {
     description: 'Output tokens per model',
     unit: 'tokens',
   });
-  const modelQueriesGauge = meter.createUpDownCounter('claude.spend.model.queries', {
+  const modelQueriesGauge = meter.createUpDownCounter('agent.usage.model.queries', {
     description: 'Query count per model',
   });
 

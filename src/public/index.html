@@ -1207,11 +1207,11 @@ let activeSourceFilter = 'all'; // 'all', 'claude', 'gemini', 'codex'
 
 // ====== THEME ======
 function getTheme() {
-  return localStorage.getItem('claude-spend-theme') || 'dark';
+  return localStorage.getItem('coding-agent-theme') || 'dark';
 }
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('claude-spend-theme', theme);
+  localStorage.setItem('coding-agent-theme', theme);
   // Re-render charts with correct colors when theme changes
   if (DATA) { renderDailyChart(); renderModelChart(); }
 }
