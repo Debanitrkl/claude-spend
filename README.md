@@ -35,7 +35,11 @@ Each tool is parsed independently. If a tool isn't installed or has no sessions,
 
 ## Screenshots
 
-<!-- Screenshots are outdated — new ones coming soon -->
+![Dashboard overview — stats, insights, and provider breakdown](screenshots/dashboard-overview.png)
+
+![Daily token usage chart and model breakdown donut](screenshots/charts.png)
+
+![Sessions table with provider filter chips](screenshots/sessions.png)
 
 ## Options
 
