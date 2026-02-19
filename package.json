@@ -1,9 +1,10 @@
 {
-  "name": "claude-spend",
+  "name": "claude-spend-otel",
   "version": "1.0.0",
-  "description": "See where your Claude Code tokens go. One command, zero setup.",
+  "description": "Claude Code token usage dashboard with OpenTelemetry export. See where your tokens go and send metrics to any OTLP backend.",
   "main": "src/index.js",
   "bin": {
+    "claude-spend-otel": "src/index.js",
     "claude-spend": "src/index.js"
   },
   "scripts": {
@@ -17,13 +18,20 @@
     "analytics",
     "dashboard",
     "spend",
-    "cost"
+    "cost",
+    "opentelemetry",
+    "otlp",
+    "otel",
+    "metrics",
+    "observability",
+    "parseable",
+    "grafana"
   ],
-  "author": "Aniket Parihar",
+  "author": "Debabrata Panigrahi",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/writetoaniketparihar-collab/claude-spend.git"
+    "url": "https://github.com/Debanitrkl/claude-spend.git"
   },
   "dependencies": {
     "@opentelemetry/exporter-metrics-otlp-http": "^0.212.0",
